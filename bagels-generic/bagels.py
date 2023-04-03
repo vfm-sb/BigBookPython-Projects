@@ -2,7 +2,7 @@
 Bagels -- Generic Version
 A Deductive Number Guessing Game.
 Description:
-    Player must guess a three-digit number based on clues.
+    Player must guess a three-unique-digits number based on clues.
     Player will have 10 attempts to guess the random number.
 """
 
@@ -61,7 +61,7 @@ def bagels_game() -> None:
         if secret_number == guess:
             print("You Got It!")
             return
-        print(" ".join(hints))
+        print(" ".join(sorted(hints)))
     print("You Ran Out of Guesses!")
     print(f"The Number was {secret_number}")
 
@@ -83,7 +83,10 @@ def main() -> None:
         print("\nWould You Like To Play Again? (yes or no)")
         answer = input("> ").lower()
         if answer == "yes":
-            os.system("clear")
+            if os.name == "posix":
+                os.system("clear")
+            elif os.name == "nt":
+                os.system("cls")
             continue
         break
     print("Thanks For Playing!")
