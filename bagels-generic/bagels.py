@@ -28,12 +28,6 @@ def valid_guess(guess: str) -> bool:
     return True
 
 
-def is_correct_guess(hints: list) -> bool:
-    if hints.count("Pico") == 3:
-        return True
-    return False
-
-
 def pico_fermi_bagels(secret_number: str, guess: str) -> list[str]:
     hints = []
     for index, digit in enumerate(guess):
@@ -64,7 +58,7 @@ def bagels_game() -> None:
             continue
         guess_count += 1
         hints = pico_fermi_bagels(secret_number, guess)
-        if is_correct_guess(hints):
+        if secret_number == guess:
             print("You Got It!")
             return
         print(" ".join(hints))
