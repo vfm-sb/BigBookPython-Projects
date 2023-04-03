@@ -49,29 +49,32 @@ def bagels_game(lives: int = 10) -> None:
     number_of_digits = len(secret_number)
     print(f"Random Number Has Been Determined and It is {number_of_digits} Digits Long!", end=" ")
     print(f"Hint: {secret_number}")
-    print(f"You Have {lives} Guesses to Find The Number.")
-    guess_count = 1
-    while guess_count <= lives:
+    hint_index = 0
+    while lives >= 1:
         print()
-        print(f"Guess #{guess_count}")
+        print(f"Remaining Lives: {lives}")
         guess = input("> ")
         if guess.lower() == "force":
             break
         if guess.lower() == "hint":
-            pass
+            print(f"Digit No:{hint_index + 1} is {secret_number[hint_index]}")
+            print("You've Lost an Addition Life for This Hint!")
+            hint_index += 1
+            lives -= 2
+            continue
         if len(guess) == number_of_digits - 1:
             guess = "0" + guess
         if not valid_guess(guess, number_of_digits):
             print("Not a Valid Guess\nGuess Again!")
             continue
-        guess_count += 1
+        lives -= 1
         hints = pico_fermi_bagels(secret_number, guess)
         if secret_number == guess:
             print("You Got It!")
             return
         print(" ".join(sorted(hints)))
-    if guess_count == lives:
-        print("You Ran Out of Guesses!")
+    if not lives:
+        print("You Ran Out of Lives!")
     print(f"The Number was {secret_number}")
 
 
@@ -87,8 +90,9 @@ def header():
 
 
 def main() -> None:
+    initial_lives = 20
     while True:
-        bagels_game()
+        bagels_game(initial_lives)
         print("\nWould You Like To Play Again? (yes or no)")
         answer = input("> ").lower()
         if answer == "yes":
