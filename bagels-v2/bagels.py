@@ -19,10 +19,10 @@ def generate_secret_number() -> str:
     return "".join(random.sample(string.digits, number_of_digits))
 
 
-def valid_guess(guess: str) -> bool:
+def valid_guess(guess: str, digits_count: int) -> bool:
     if not guess.isdigit():
         return False
-    if len(guess) != 3:
+    if len(guess) != digits_count:
         return False
     for digit in guess:
         if guess.count(digit) > 1:
@@ -43,19 +43,25 @@ def pico_fermi_bagels(secret_number: str, guess: str) -> list[str]:
     return hints
 
 
-def bagels_game() -> None:
+def bagels_game(lives: int = 10) -> None:
     header()
     secret_number = generate_secret_number()
-    print("Random Number Has Been Determined! Hint: {}".format(secret_number))
-    print("You Have 10 Guesses to Find The Number.")
+    number_of_digits = len(secret_number)
+    print(f"Random Number Has Been Determined and It is {number_of_digits} Digits Long!", end=" ")
+    print(f"Hint: {secret_number}")
+    print(f"You Have {lives} Guesses to Find The Number.")
     guess_count = 1
-    while guess_count <= 10:
+    while guess_count <= lives:
         print()
         print(f"Guess #{guess_count}")
         guess = input("> ")
-        if len(guess) == 2:
+        if guess.lower() == "force":
+            break
+        if guess.lower() == "hint":
+            pass
+        if len(guess) == number_of_digits - 1:
             guess = "0" + guess
-        if not valid_guess(guess):
+        if not valid_guess(guess, number_of_digits):
             print("Not a Valid Guess\nGuess Again!")
             continue
         guess_count += 1
@@ -64,7 +70,8 @@ def bagels_game() -> None:
             print("You Got It!")
             return
         print(" ".join(sorted(hints)))
-    print("You Ran Out of Guesses!")
+    if guess_count == lives:
+        print("You Ran Out of Guesses!")
     print(f"The Number was {secret_number}")
 
 
