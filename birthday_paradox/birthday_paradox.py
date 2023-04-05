@@ -23,4 +23,11 @@ def has_matching_birthdays(birthdays: list[datetime.date]) -> bool:
 
 
 def matching_birthdays(birthdays: list[datetime.date]) -> list[datetime.date]:
-    pass
+    unique_birthdays = set()
+    common_birthdays = []
+    for birthday in birthdays:
+        if birthday in unique_birthdays:
+            common_birthdays.append(birthday)
+        else:
+            unique_birthdays.add(birthday)
+    return common_birthdays
