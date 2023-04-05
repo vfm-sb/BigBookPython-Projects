@@ -16,3 +16,11 @@ def random_birthday() -> datetime.date:
 
 def generate_birthdays(n: int) -> list[datetime.date]:
     return [random_birthday() for _ in range(n)]
+
+
+def has_matching_birthdays(birthdays: list[datetime.date]) -> bool:
+    return len(birthdays) == len(set(birthdays))
+
+
+def matching_birthdays(birthdays: list[datetime.date]) -> list[datetime.date]:
+    pass
