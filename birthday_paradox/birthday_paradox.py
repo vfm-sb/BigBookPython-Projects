@@ -18,16 +18,16 @@ def generate_birthdays(n: int) -> list[datetime.date]:
     return [random_birthday() for _ in range(n)]
 
 
-def has_matching_birthdays(birthdays: list[datetime.date]) -> bool:
-    return len(birthdays) == len(set(birthdays))
+def has_duplicate_dates(dates: list[datetime.date]) -> bool:
+    return len(dates) == len(set(dates))
 
 
 def matching_birthdays(birthdays: list[datetime.date]) -> list[datetime.date]:
-    unique_birthdays = set()
+    unique_birthdays = []
     common_birthdays = []
     for birthday in birthdays:
         if birthday in unique_birthdays:
             common_birthdays.append(birthday)
         else:
-            unique_birthdays.add(birthday)
+            unique_birthdays.append(birthday)
     return common_birthdays
