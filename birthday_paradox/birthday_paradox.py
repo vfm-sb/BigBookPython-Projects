@@ -45,4 +45,22 @@ def print_dates(str_dates: list[str]) -> None:
 
 
 def birthday_simulator():
-    pass
+    print("Birthday Paradox...")
+    print("How Many Birthdays To Be Generated? (Max 100)")
+    while True:
+        try:
+            number_of_birthdays = input("> ")
+            if not number_of_birthdays.isdigit():
+                raise ValueError("Input Must Be a Positive Integer!")
+            number_of_birthdays = int(number_of_birthdays)
+            if 1 <= number_of_birthdays <= 100:
+                raise ValueError("Number is Out of Range (1-100).")
+            break
+        except ValueError as error:
+            print(error)
+            print("Please Try Again!")
+    # generate given number of birthdays
+    random_birthdays = generate_random_dates(number_of_birthdays)
+    print(f"Here are {len(random_birthdays)} Birthdays:")
+    print_dates(str_dates(random_birthdays))
+    
