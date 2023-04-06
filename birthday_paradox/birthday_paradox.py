@@ -31,3 +31,18 @@ def matching_dates(birthdays: list[datetime.date]) -> list[datetime.date]:
         else:
             unique_birthdays.append(birthday)
     return common_birthdays
+
+
+def str_dates(dates: list[datetime.date]) -> list[str]:
+    return [date.strftime("%B %e") for date in dates]
+
+
+def print_dates(str_dates: list[str]) -> None:
+    for counter, date in enumerate(str_dates, start=1):
+        print(date, end=", ")
+        if counter % 10 == 0:
+            print()
+
+
+def birthday_simulator():
+    pass
