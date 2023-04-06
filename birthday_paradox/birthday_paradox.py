@@ -42,9 +42,11 @@ def print_dates(str_dates: list[str]) -> None:
         print(date, end=", ")
         if counter % 10 == 0:
             print()
+    print()
 
 
-def birthday_simulator():
+
+def birthday_paradox_application():
     print("Birthday Paradox...")
     print("How Many Birthdays To Be Generated? (Max 100)")
     while True:
@@ -53,14 +55,46 @@ def birthday_simulator():
             if not number_of_birthdays.isdigit():
                 raise ValueError("Input Must Be a Positive Integer!")
             number_of_birthdays = int(number_of_birthdays)
-            if 1 <= number_of_birthdays <= 100:
+            if 1 > number_of_birthdays > 100:
                 raise ValueError("Number is Out of Range (1-100).")
             break
         except ValueError as error:
             print(error)
             print("Please Try Again!")
-    # generate given number of birthdays
     random_birthdays = generate_random_dates(number_of_birthdays)
     print(f"Here are {len(random_birthdays)} Birthdays:")
     print_dates(str_dates(random_birthdays))
-    
+    if has_duplicate_dates(random_birthdays):
+        print(
+            "In This Simulation, Multiple People Have Birthdays on "
+            f'{", ".join(str_dates(matching_dates(random_birthdays)))}'
+        )
+    else:
+        print("There are no Matching Birthdays.")
+    print(f"Generating {number_of_birthdays} Random Birthdays 100K Times.")
+    input("Press Enter to Start...")
+    print("Running 100K Simulations...")
+    matches = 1 if has_duplicate_dates(random_birthdays) else 0
+    for sim_no in range(1, 10001):
+        if sim_no % 10_000 == 0:
+            print(f"{sim_no} Simulations Ran")
+        random_birthdays = generate_random_dates(number_of_birthdays)
+        if has_duplicate_dates(random_birthdays):
+            matches += 1
+    probability = round(matches / 100_000 * 100, 2)
+    print(
+        f"Out of 100K Simulations of {number_of_birthdays} People, "
+        f"{matches} Times Multiple People Had Matching Birthdays!"
+    )
+    print(
+        f"This Means {number_of_birthdays} People Have a {probability}% "
+        "Chance of Having a Matching Birthday."
+    )
+
+
+def main():
+    birthday_paradox_application()
+
+
+if __name__ == "__main__":
+    main()
