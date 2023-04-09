@@ -65,17 +65,19 @@ def birthday_paradox_application():
     print(f"Here are {len(random_birthdays)} Birthdays:")
     print_dates(str_dates(random_birthdays))
     if has_duplicate_dates(random_birthdays):
+        mactching_birthdays = matching_dates(random_birthdays)
         print(
             "In This Simulation, Multiple People Have Birthdays on "
-            f'{", ".join(str_dates(matching_dates(random_birthdays)))}'
+            f'{str_dates(mactching_birthdays)}'
+            # f'{", ".join(str_dates(mactching_birthdays))}'
         )
     else:
         print("There are no Matching Birthdays.")
     print(f"Generating {number_of_birthdays} Random Birthdays 100K Times.")
     input("Press Enter to Start...")
     print("Running 100K Simulations...")
-    matches = 1 if has_duplicate_dates(random_birthdays) else 0
-    for sim_no in range(1, 10001):
+    matches = 0
+    for sim_no in range(100_000):
         if sim_no % 10_000 == 0:
             print(f"{sim_no} Simulations Ran")
         random_birthdays = generate_random_dates(number_of_birthdays)
