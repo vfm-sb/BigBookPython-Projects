@@ -34,7 +34,7 @@ def matching_dates(birthdays: list[datetime.date]) -> list[datetime.date]:
 
 
 def str_dates(dates: list[datetime.date]) -> list[str]:
-    return [date.strftime("%B %e") for date in dates]
+    return [date.strftime("%B %d") for date in dates]
 
 
 def print_dates(str_dates: list[str]) -> None:
@@ -43,7 +43,6 @@ def print_dates(str_dates: list[str]) -> None:
         if counter % 10 == 0:
             print()
     print()
-
 
 
 def birthday_paradox_application():
@@ -68,7 +67,6 @@ def birthday_paradox_application():
         mactching_birthdays = matching_dates(random_birthdays)
         print(
             "In This Simulation, Multiple People Have Birthdays on "
-            # f'{str_dates(mactching_birthdays)}'
             f'{", ".join(str_dates(mactching_birthdays))}'
         )
     else:
