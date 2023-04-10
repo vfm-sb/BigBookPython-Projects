@@ -39,10 +39,12 @@ def str_dates(dates: list[datetime.date]) -> list[str]:
 
 def print_dates(str_dates: list[str]) -> None:
     for counter, date in enumerate(str_dates, start=1):
-        print(date, end=", ")
         if counter % 10 == 0:
-            print()
-    print()
+            print(date, end=",\n")
+        elif date == str_dates[-1]:
+            print(date)
+        else:
+            print(date, end=", ")
 
 
 def birthday_paradox_application():
