@@ -19,7 +19,7 @@ def generate_random_dates(n: int) -> list[datetime.date]:
 
 
 def has_duplicate_dates(dates: list[datetime.date]) -> bool:
-    return len(dates) == len(set(dates))
+    return len(dates) != len(set(dates))
 
 
 def matching_dates(birthdays: list[datetime.date]) -> list[datetime.date]:
@@ -55,7 +55,7 @@ def birthday_paradox_application():
             if not number_of_birthdays.isdigit():
                 raise ValueError("Input Must Be a Positive Integer!")
             number_of_birthdays = int(number_of_birthdays)
-            if 1 > number_of_birthdays > 100:
+            if not 1 <= number_of_birthdays <= 100:
                 raise ValueError("Number is Out of Range (1-100).")
             break
         except ValueError as error:
@@ -68,8 +68,8 @@ def birthday_paradox_application():
         mactching_birthdays = matching_dates(random_birthdays)
         print(
             "In This Simulation, Multiple People Have Birthdays on "
-            f'{str_dates(mactching_birthdays)}'
-            # f'{", ".join(str_dates(mactching_birthdays))}'
+            # f'{str_dates(mactching_birthdays)}'
+            f'{", ".join(str_dates(mactching_birthdays))}'
         )
     else:
         print("There are no Matching Birthdays.")
@@ -77,8 +77,8 @@ def birthday_paradox_application():
     input("Press Enter to Start...")
     print("Running 100K Simulations...")
     matches = 0
-    for sim_no in range(100_000):
-        if sim_no % 10_000 == 0:
+    for sim_no in range(100_001):
+        if sim_no != 0 and sim_no % 10_000 == 0:
             print(f"{sim_no} Simulations Ran")
         random_birthdays = generate_random_dates(number_of_birthdays)
         if has_duplicate_dates(random_birthdays):
