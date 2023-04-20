@@ -4,6 +4,8 @@ Simplified Version of Calendar Maker, Version 0
 
 __version__ = "0.1.0"
 
+import calendar
+
 
 def get_year() -> int:
     while True:
@@ -55,6 +57,8 @@ def cli_calendar_maker() -> None:
     print(f"Simplified Version of Calendar Maker by VFM/SB, (Version {__version__})")
     year = get_year()
     month = get_month()
+    custom_calendar = calendar.TextCalendar()
+    custom_calendar.prmonth(year, month, w=8, l=3)
 
 
 def main() -> None:
